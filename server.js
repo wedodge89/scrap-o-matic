@@ -1,3 +1,4 @@
+// Require NPM packages
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
@@ -5,11 +6,13 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const handlebars = require("express-handlebars")
 
+// Require Models
 const Article = require("./models/Article.js")
 const Note = require("./models/Note.js")
 
 const PORT = 3000;
 
+// Set Up Express
 const app = express();
 
 app.use(logger("dev"));
@@ -21,31 +24,35 @@ app.use(express.static("public"));
 app.engine("handlebars", handlebars({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
+// Setting up connection to Mongo DB
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines"
 mongoose.connect(MONGODB_URI);
 
 // Routes
 app.get("/", function(req, res) {
-    res.render("index");
-    // if there's nothing in collection, scrape
+    // If there's nothing in collection, scrape
     if (!MONGODB_URI.articles) {
         res.redirect("/scrape")
+        return;
+    // Else, show all
     } else {
         res.redirect("/all")
     }
-    // else "show all"
 });
 
+// Scrape Route
 app.get("/scrape", function(req, res) {
     axios.get("https://nintendoeverything.com/").then(function(res){
         const $ = cheerio.load(res.data);
 
+        // Save desired info from scrape
         $(".row.text-left").each(function(index, value) {
             const title = $(this).find("h2").text().trim();
             const url = $(this).find("a").attr("href");
             const desc = $(this).find(".description").children("div.large-12").eq(1).children("p").eq(1).text();
             const image = $(this).find("img.attachment-large").attr("src");
             
+            // Create object from variables
             let result = {
                 "title": title,
                 "url": url,
@@ -53,6 +60,7 @@ app.get("/scrape", function(req, res) {
                 "image": image
             };
 
+            // Create Article from schema
             Article.create(result)
                 .then(function(dbArticle) {
                     console.log(dbArticle);
@@ -61,21 +69,29 @@ app.get("/scrape", function(req, res) {
                     console.log(err.message)
                 });
         });
+    })
+    .then(res.redirect("/all"));
+});
 
-        res.send("Scrape Complete!")
-
-        // res.redirect to "show all"
-
+app.get("/all", function(req, res) {
+    Article.find({}).then(function(dbArticle) {
+    let articles = [];
+        for (const el of dbArticle) {
+            articles.push({ id: el._id, title: el.title, desc: el.desc, url: el.url, image: el.image });
+        };
+        res.render("index", { article: articles });
     });
 });
 
-// show all articles route (get)
-    // find ({})
-    // res.json
-    // console.log
-app.get("/all", function(req, res) {
-
-})
+app.get("/notes", function(req, res) {
+    Note.find({})
+        .then(function(dbNote){
+            res.json(dbNote);
+        })
+        .catch(function(err) {
+            res.json(err);
+        });
+});
 
     // res.render 
     // note button
@@ -84,10 +100,6 @@ app.get("/all", function(req, res) {
 // save notes /:id (post)
     // link note and article id
 
-// view notes route
-
-
 app.listen(PORT, function() {
     console.log(`Listening on port ${PORT}`)
-})
-
+});
