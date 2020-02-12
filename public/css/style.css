@@ -1,3 +1,14 @@
-body {
-    background-image: url("./../images/NES-Cartridge.jpg");
+.header {
+    background-image: url("./../images/header.jpg");
+    background-size: 90vw 60vh;
+    background-repeat: no-repeat;
+    font-family: "kongtextregular";
+}
+
+.jumboTitle {
+    font-size: 48px;
+}
+
+.jumboText {
+    width: 57vw;
 }
