@@ -12,3 +12,7 @@
 .jumboText {
     width: 57vw;
 }
+
+.newsCart {
+    background-image: url(../images/NES-Cartridge.jpg);
+}

@@ -40,7 +40,7 @@ app.get("/api/scrape", function(req, res) {
                 });
         });
     })
-    .then(res.redirect("./htmlRoutes/all"));
+    .then(res.redirect("/all"));
 });
 
 
