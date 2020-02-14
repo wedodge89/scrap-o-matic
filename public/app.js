@@ -1,3 +1,20 @@
+$(document).on("click", ".save", function () {
+    
+    let articleId = $(this).attr("id");
+
+    $.ajax({
+        method: "PUT",
+        url: "/api/articles/" + articleId,
+        data: {
+            id: $(this).attr("id"),
+            saved: $(this).attr("saved")
+        }
+    })
+        .then(function(data) {
+            console.log(data);
+        });
+});
+
 function createCart(data) {
     for (let i = 0; i < data.length; i ++) {
         let cartDiv = $("<div>")
