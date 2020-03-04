@@ -1,36 +1,29 @@
 const db = require("../models");
-const scrap = require("../scripts/scrape.js");
+const scrape = require("../scripts/scrape.js");
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-app.get("/api/scrape", function(req, res) {
-    axios.get("https://nintendoeverything.com/").then(function(res){
-        const $ = cheerio.load(res.data);
-
-        // Save desired info from scrape
-        $(".row.text-left").each(function(index, value) {
-            const title = $(this).find("h2").text().trim();
-            const url = $(this).find("a").attr("href");
-            const desc = $(this).find(".description").children("div.large-12").eq(1).children("p").eq(1).text();
-            const image = $(this).find("img.attachment-large").attr("src");
-            
-            // Create object from variables
-            let result = {
-                "title": title,
-                "url": url,
-                "desc": desc,
-                "image": image
-            };
-
-            // Create Article from schema
-            db.Article.create(result)
-                .then(function(dbArticle) {
-                    console.log(dbArticle);
-                })
-                .catch(function(err) {
-                    console.log(err.message)
+module.exports = {
+    scrapeArticles: function(req, res) {
+        return scrape()
+            .then(function(articles) {
+                return db.Article.create(articles);
+            })
+            .then(function(dbArticle) {
+                if (dbArticle.length === 0) {
+                    res.json({
+                        message: "There are no new articles."
+                    });
+                } else {
+                    res.json({
+                        message: "Added " + dbArticle.length + " new articles!"
+                    });
+                }
+            })
+            .catch(function(err) {
+                res.json({
+                    message: "Scrape complete!"
                 });
-        });
-    })
-    .then(res.redirect("/all"));
-});
+            });
+    }
+};
