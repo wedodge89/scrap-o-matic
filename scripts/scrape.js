@@ -32,3 +32,5 @@ let scrape = function() {
     })
     .then(res.redirect("/all"));
 };
+
+module.exports = scrape;
