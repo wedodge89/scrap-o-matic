@@ -1,8 +1,19 @@
 const mongoose = require("mongoose");
 
-var Schema = mongoose.Schema;
-var NoteSchema = new Schema({
-  title: String,
+const Schema = mongoose.Schema;
+
+let NoteSchema = new Schema({
+
+  _articleId: {
+    type: Schema.Types.ObjectId, 
+    ref: "Article"
+  },
+  
+  date: {
+    type: Date,
+    default: Date.now
+  },
+  
   body: String
 });
 
