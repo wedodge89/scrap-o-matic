@@ -40,10 +40,6 @@ module.exports = app;
 
 
 
-
-
-
-
 // app.get("/", function(req, res) {
 //     // If there's nothing in collection, scrape
 //     if (!MONGODB_URI.articles) {
