@@ -27,8 +27,7 @@ const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlin
 mongoose.connect(MONGODB_URI);
 
 // Requiring Routes
-require("./routes/apiRoutes.js")(app);
-require("./routes/htmlRoutes.js")(app);
+const routes = require("./routes/");
 
 // Start server
 app.listen(PORT, function() {
@@ -36,45 +35,3 @@ app.listen(PORT, function() {
 });
 
 module.exports = app;
-
-
-
-
-// app.get("/", function(req, res) {
-//     // If there's nothing in collection, scrape
-//     if (!MONGODB_URI.articles) {
-//         res.redirect("/scrape")
-//         return;
-//     // Else, show all
-//     } else {
-//         res.redirect("/all")
-//     }
-// });
-
-// // "Show All" route
-// app.get("/all", function(req, res) {
-//     Article.find({}).then(function(dbArticle) {
-//     let articles = [];
-//         for (const el of dbArticle) {
-//             articles.push({ id: el._id, title: el.title, desc: el.desc, url: el.url, image: el.image });
-//         };
-//         res.render("index", { article: articles });
-//     });
-// });
-
-// app.get("/notes", function(req, res) {
-//     Note.find({})
-//         .then(function(dbNote){
-//             res.json(dbNote);
-//         })
-//         .catch(function(err) {
-//             res.json(err);
-//         });
-// });
-
-//     // res.render 
-//     // note button
-//         // include art id as attr
-
-// // save notes /:id (post)
-//     // link note and article id

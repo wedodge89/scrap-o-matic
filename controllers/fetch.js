@@ -1,7 +1,5 @@
 const db = require("../models");
-const scrape = require("../scripts/scrape.js");
-const axios = require("axios");
-const cheerio = require("cheerio");
+const scrape = require("../scripts/scrape");
 
 module.exports = {
     scrapeArticles: function(req, res) {

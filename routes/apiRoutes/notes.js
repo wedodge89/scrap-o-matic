@@ -1,4 +1,4 @@
-const router = require("express");
+const router = require("express").Router();
 const noteController = require("../../controllers/note");
 
 router.get("/:id", noteController.find);
