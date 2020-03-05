@@ -51,6 +51,12 @@
 }
 
 .cardHead {
-    font-family: "terminal";
+    font-family: 'Press Start 2P', cursive;
     font-size: 20px;
+    float: left;
+    margin: 15px;
+}
+
+.articleImage {
+    width: 593px;
 }
