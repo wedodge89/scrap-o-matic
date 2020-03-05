@@ -28,6 +28,7 @@ let scrape = function() {
             console.log(result);
             articles.push(result);
         });
+        console.log(articles)
         return articles;
     })
 };
