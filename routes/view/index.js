@@ -3,8 +3,8 @@ const db = require("../../models");
 
 router.get("/", function(req, res) {
     db.Article.find({})
-        .then(function(dbArticles) {
-            res.render("home", { articles: dbArticles});
+        .then(function(mongoHeadline) {
+            res.render("home", { articles: mongoHeadline});
         });
 });
 

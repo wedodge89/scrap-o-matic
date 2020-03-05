@@ -4,17 +4,17 @@ const scrape = require("../scripts/scrape");
 module.exports = {
     scrapeArticles: function(req, res) {
         return scrape()
-            .then(function(articles) {
-                return db.Article.create(articles);
+            .then(function(data) {
+                return db.Article.create(data);
             })
-            .then(function(dbArticle) {
-                if (dbArticle.length === 0) {
+            .then(function(articles) {
+                if (articles.length === 0) {
                     res.json({
                         message: "There are no new articles."
                     });
                 } else {
                     res.json({
-                        message: "Added " + dbArticle.length + " new articles!"
+                        message: "Added " + articles.length + " new articles!"
                     });
                 }
             })

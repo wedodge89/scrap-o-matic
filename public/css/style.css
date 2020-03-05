@@ -16,3 +16,8 @@
 .newsCart {
     background-image: url(../images/NES-Cartridge.jpg);
 }
+
+.save {
+    font-family: "kongtextregular";
+    font-size: 14px;
+}

@@ -1,28 +1,49 @@
 <div class="container">
-    <div class="nes-container is-rounded">
-        <div class="jumbotron header">
-            <h1 class="display-4 jumboTitle">The 'Tendo Times</h1>
-            <p class="lead">
-                <i class="nes-icon coin is-small"></i>Your source for Nintendo News<i class="nes-icon coin is-small"></i>
-            </p>
-            <hr class="my-4">
-            <div class="jumboText">
-                <p>Here you can read, save, and comment on various Nintendo news articles.</p>
-            </div>
-            <a class="nes-btn is-success home" href="/">Home</a>
-            <a class="nes-btn is-warning scrape" href="/">Scrape</a>
-            <a class="nes-btn is-error saved" href="/saved">Saved</a>
+    <div class="jumbotron header">
+        <h1 class="display-4 jumboTitle">The 'Tendo Times</h1>
+        <p class="lead">
+            <i class="nes-icon coin is-small"></i>Your source for Nintendo News<i class="nes-icon coin is-small"></i>
+        </p>
+        <hr class="my-4">
+        <div class="jumboText">
+            <p>Here you can read, save, and comment on various Nintendo news articles.</p>
         </div>
+        <a class="nes-btn is-success home" href="/">Home</a>
+        <a class="nes-btn is-warning scrape" href="/">Scrape</a>
+        <a class="nes-btn is-error saved" href="/saved">Saved</a>
     </div>
-    {{#each mongoHeadlines}}
-  <div data-_id="{{this._id}}" class="card">
-    <div class="card-header">
-      <h3>
-        <a class="article-link" target="_blank" href="{{this.url}}">{{this.title}}</a>
-        <a class="btn btn-success save">Save Article</a>
-      </h3>
-    </div>
-    <div class="card-body">{{this.desc}}</div>
+    <div class="nes-container is-rounded article-box">
+        {{#each articles}}
+        <div data-_id="{{this._id}}" class="card">
+            <div class="card-header">
+                <h3>
+                <a class="article-link" target="_blank" href="{{this.url}}">{{this.title}}</a>
+                <a class="nes-btn is-error save">Save Article</a>
+                </h3>
+            </div>
+            <div class="card-body">{{this.desc}}
+                {{#unless articles.length}}
+  <div class='alert alert-warning text-center'>
+    <h4>Uh Oh. Looks like we don't have any new articles.</h4>
   </div>
+  <div class="card">
+    <div class="card-header text-center">
+      <h3>What Would You Like To Do?</h3>
+    </div>
+    <div class="card-body text-center">
+      <h4>
+        <a class="scrape-new">Try Scraping New Articles</a>
+      </h4>
+      <h4>
+        <a href="/saved">Go to Saved Articles</a>
+      </h4>
+    </div>
+  </div>
+  {{/unless}}
+            </div>
+        </div>
   {{/each}}
+    </div>
 </div>
+
+<script src="/js/index.js"></script>
