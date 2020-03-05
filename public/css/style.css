@@ -20,4 +20,32 @@
 .save {
     font-family: "kongtextregular";
     font-size: 14px;
+    float: right;
+    color: white !important;
+}
+
+.noArticleText {
+    font-family: "kongtextregular";
+    font-size: 18px;
+    color: white;
+    background-color: black;
+    float: left;
+    line-height: 10px;
+}
+
+.whatNow {
+    font-family: "kongtextregular";
+    font-size: 18px;
+}
+
+.toadIcon {
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: -5px;
+    padding: 5px;
+}
+
+.nes-btn {
+    font-family: "kongtextregular";
+    font-size: 14px;
 }
