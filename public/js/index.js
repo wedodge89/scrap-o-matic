@@ -7,7 +7,7 @@ $(document).ready(function() {
     function startUp() {
         $.get("/api/articles?saved=false").then(function(data) {
             articleBox.empty();
-            if (data.length > 0) {
+            if (data && data.length) {
                 printArticles(data);
             } else {
                 noArticles();
@@ -86,6 +86,7 @@ $(document).ready(function() {
 
     function scrapeArticles() {
         $.get("/api/fetch").then(function(data) {
+            console.log(data)
             startUp();
         });
     };

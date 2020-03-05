@@ -4,8 +4,8 @@ const scrape = require("../scripts/scrape");
 module.exports = {
     scrapeArticles: function(req, res) {
         return scrape()
-            .then(function(data) {
-                return db.Article.create(data);
+            .then(function(articles) {
+                return db.Article.create(articles);
             })
             .then(function(articles) {
                 if (articles.length === 0) {

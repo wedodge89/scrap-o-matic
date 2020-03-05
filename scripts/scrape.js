@@ -18,17 +18,16 @@ let scrape = function() {
             const image = $(this).find("img.attachment-large").attr("src");
             
             // Create object from variables
-            let result = {
+            let dataToAdd = {
                 "title": title,
                 "url": url,
                 "desc": desc,
                 "image": image
             };
 
-            console.log(result);
-            articles.push(result);
+            console.log(dataToAdd);
+            articles.push(dataToAdd);
         });
-        console.log(articles)
         return articles;
     })
 };
