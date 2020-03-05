@@ -1,7 +1,7 @@
 $(document).ready(function() {
     let articleBox = $(".article-box");
-    $(document).on("click", ".btn .save", saveArticle);
-    $(document).on("click", ".btn .scrape", scrapeArticles);
+    $(document).on("click", ".nes-btn .save", saveArticle);
+    $(document).on("click", ".scrape", scrapeArticles);
     $(".clear").on("click", clearArticles);
 
     function startUp() {

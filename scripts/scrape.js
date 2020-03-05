@@ -25,6 +25,7 @@ let scrape = function() {
                 "image": image
             };
 
+            console.log(result);
             articles.push(result);
         });
         return articles;
